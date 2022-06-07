@@ -24,9 +24,10 @@
 
 1) `vue create project-name`
 2) `cd project-name`
-3) `vue add electron-builder`
-4) `npm install electron`
-5) `npm install bootstrap@latest`
+3) `npm install`
+4) `vue add electron-builder`
+5) `npm install --save @electron/remote`
+6) `npm install bootstrap@latest`
 
 Now you're ready to copy my code into you app directory and explore!
 
