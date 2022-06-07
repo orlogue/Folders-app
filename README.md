@@ -2,8 +2,8 @@
 
 ## Requirements to develop and deploy
 
-1) Node.js and NPM
-2) VueCLI >= 5
+1) Node.js 16 and NPM
+2) VueCLI 5
 3) Vue.js 3
 4) Electron 13
 
