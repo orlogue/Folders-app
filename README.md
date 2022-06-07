@@ -16,7 +16,7 @@ Now you're ready to explore and modify!
 
 ### Compiles and hot-reloads for development
 
-Change `"devTools: true"` under webPreferences in `background.js` to enable inspector
+Change `"devTools: false"` to "true" under webPreferences in `background.js` to enable Web Inspector.
 ```
 npm run electron:serve
 ```
