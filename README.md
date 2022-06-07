@@ -3,31 +3,16 @@
 ## Requirements to develop and deploy
 
 1) Node.js 16 and NPM
-2) VueCLI 5
-
-## Dependencies
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "electron": "^13.6.9",
-    "electron-devtools-installer": "^3.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "vue-cli-plugin-electron-builder": "~2.1.1"
-    
+2) VueCLI 5 
     
 ## Setup
 
 1) `vue create project-name`
 2) `cd project-name`
-3) `npm install`
-4) `vue add electron-builder`
-5) `npm install --save @electron/remote`
-6) `npm install bootstrap@latest`
+3) copy and paste my project files into current directory
+4) `npm install`
 
-Now you're ready to copy my code into you app directory and explore!
+Now you're ready to explore and modify!
 
 ### Compiles and hot-reloads for development
 
