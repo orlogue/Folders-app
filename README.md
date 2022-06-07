@@ -25,4 +25,4 @@ npm run electron:serve
 ```
 npm run electron:build
 ```
-#### WARNING: Orifinally made for macOS. If you're using Windows make sure to change paths in components in Windows-like way!
+#### WARNING: Originally made for macOS. If you're using Windows make sure to change paths in components in Windows-like way!
