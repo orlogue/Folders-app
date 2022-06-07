@@ -1,5 +1,12 @@
 # Folders-app
 
+## Requirements to develop and deploy
+
+1) Node.js and NPM
+2) VueCLI >= 5
+3) Vue.js 3
+4) Electron 13
+
 ## Dependencies
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
@@ -11,11 +18,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "vue-cli-plugin-electron-builder": "~2.1.1"
-
-## Project setup
-```
-npm install
-```
+    
 
 ### Compiles and hot-reloads for development
 
