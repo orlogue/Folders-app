@@ -19,6 +19,16 @@
     "eslint-plugin-vue": "^8.0.3",
     "vue-cli-plugin-electron-builder": "~2.1.1"
     
+    
+## Setup
+
+1) `vue create project-name`
+2) `cd project-name`
+3) `vue add electron-builder`
+4) `npm install electron`
+5) `npm install bootstrap@latest`
+
+Now you're ready to copy my code into you app directory and explore!
 
 ### Compiles and hot-reloads for development
 
