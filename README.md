@@ -4,8 +4,6 @@
 
 1) Node.js 16 and NPM
 2) VueCLI 5
-3) Vue.js 3
-4) Electron 13
 
 ## Dependencies
     "@babel/core": "^7.12.16",
