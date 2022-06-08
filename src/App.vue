@@ -126,10 +126,10 @@ export default {
       if (files.value.find(s => s.name === title)) {
         dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(),{
           type: 'warning',
-          title: 'Ошибка',
-          buttons: ['Отменить'],
+          title: 'Ошибка', //Error
+          buttons: ['Отменить'], //Cancel
           normalizeAccessKeys: true,
-          message: 'Папка/файл с таким названием уже существует!',
+          message: 'Папка/файл с таким названием уже существует!', //Folder/file with this title already exists.
         });
       } else {
         fs.renameSync(pathModule.join(path.value, file.name), pathModule.join(path.value, title))
