@@ -2,8 +2,8 @@
 
 ## Requirements to develop and deploy
 
-1) Node.js 16 and NPM
-2) VueCLI 5 
+1) Node.js 16.15.0 and NPM
+2) VueCLI 5.0.4 
     
 ## Setup
 
