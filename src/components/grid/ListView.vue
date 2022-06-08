@@ -3,9 +3,9 @@
     <thead>
     <tr class="head unselectable">
       <th scope="col"></th>
-      <th scope="col">Имя</th>
-      <th scope="col" class="text-end">Дата создания</th>
-      <th scope="col" class="text-end">Размер</th>
+      <th scope="col">Имя<!-- Name --></th>
+      <th scope="col" class="text-end">Дата создания<!-- Creation date --></th>
+      <th scope="col" class="text-end">Размер<!-- Size --></th>
     </tr>
     </thead>
     <tbody>
@@ -47,8 +47,8 @@
     </tbody>
   </table>
   <context-menu :display="showContextMenu" ref="menu">
-    <li @mousedown="rename(this.file)">Переименовать</li>
-    <li @mousedown="deleteF(this.file)">Удалить</li>
+    <li @mousedown="rename(this.file)">Переименовать<!-- Rename --></li>
+    <li @mousedown="deleteF(this.file)">Удалить<!-- Delete --></li>
   </context-menu>
 </template>
 
@@ -68,6 +68,9 @@ export default {
   },
   emits: ['folderClick', 'fileClick', 'deleteFile', 'renameFile'],
   mixins: [ContextMenuDataAndFunctions],
+  props: {
+    files: {type: Array, default: () => []}
+  },
   setup(_, {emit}) {
     const onFileClick = file => {
       if (file.directory) emit('folderClick', file)

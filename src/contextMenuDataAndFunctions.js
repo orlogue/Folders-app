@@ -8,9 +8,6 @@ export default {
       file: Object,
     }
   },
-  props: {
-    files: {type: Array, default: () => []}
-  },
   methods: {
     deleteF(file) {
       this.$refs.menu.close()

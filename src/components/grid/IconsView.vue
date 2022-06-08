@@ -31,8 +31,8 @@
     </li>
   </ul>
   <context-menu :display="showContextMenu" ref="menu">
-    <li @mousedown="rename(this.file)">Переименовать</li>
-    <li @mousedown="deleteF(this.file)">Удалить</li>
+    <li @mousedown="rename(this.file)">Переименовать<!-- Rename --></li>
+    <li @mousedown="deleteF(this.file)">Удалить<!-- Delete --></li>
   </context-menu>
 </template>
 

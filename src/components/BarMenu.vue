@@ -8,13 +8,13 @@
           <ArrowLeft/>
       </span>
     <div class="options d-flex align-items-center">
-      <span class="fs-5 me-2 unselectable">Вид:</span>
+      <span class="fs-5 me-2 unselectable">Вид:<!-- View: --></span>
       <select
           @change="onChange($event)"
           class="form-select shadow-none clickable unselectable"
       >
-        <option value="icons">Иконки</option>
-        <option value="list">Список</option>
+        <option value="icons">Иконки<!-- Icons --></option>
+        <option value="list">Список<!-- List --></option>
       </select>
     </div>
     <button id="showHidden"
@@ -25,6 +25,7 @@
       Скрытое
     </button>
     <div class="ms-auto col-3">
+      <!-- Search -->
       <input
           :value="searchString"
           @input="$emit('update:searchString', $event.target.value)"

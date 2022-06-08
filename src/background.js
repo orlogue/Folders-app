@@ -1,7 +1,6 @@
 'use strict'
 
 import {app, protocol, BrowserWindow} from 'electron'
-// const { BrowserWindow } = require('@electron/remote')
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 
