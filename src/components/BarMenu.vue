@@ -7,7 +7,13 @@
       >
           <ArrowLeft/>
       </span>
-    <div class="options d-flex align-items-center">
+    <button id="newFolder"
+            @click="createFolderFromBM"
+            class="btn btn-light shadow-none clickable"
+    >
+      Создать папку
+    </button>
+    <div class="options ms-3 d-flex align-items-center">
       <span class="fs-5 me-2 unselectable">Вид:<!-- View: --></span>
       <select
           @change="onChange($event)"
@@ -51,6 +57,7 @@ export default {
     showHidden: Function,
     onChange: Function,
     searchString: String,
+    createFolderFromBM: Function,
   },
 }
 </script>

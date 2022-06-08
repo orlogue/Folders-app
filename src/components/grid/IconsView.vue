@@ -1,39 +1,67 @@
 <template>
-  <ul id="files" class="main-grid">
-    <li
-        class="card"
-        v-for="file in files"
-        :key="file.name"
-        :class="{ clickable: file }"
-        @click="onFileClick(file)"
-        @contextmenu="openContextMenu($event, file)"
-    >
-      <div class="card-body d-flex flex-column align-items-center">
-        <div class="mb-1 d-flex justify-content-center align-items-center">
-          <IconFolder class="icon-folder" v-if="file.directory"/>
-          <IconFile class="icon-file" v-else/>
+  <div class="inner-wrap"
+       @contextmenu="openFolderCreationMenu($event)"
+  >
+    <ul id="files" class="main-grid">
+      <li
+          id="file"
+          class="card"
+          v-for="file in files"
+          :key="file.name"
+          :class="{ clickable: file }"
+          @click="onFileClick(file)"
+          @contextmenu="openContextMenu($event, file)"
+          @contextmenu.stop
+      >
+        <div class="card-body d-flex flex-column align-items-center">
+          <div class="mb-1 d-flex justify-content-center align-items-center">
+            <IconFolder class="icon-folder" v-if="file.directory"/>
+            <IconFile class="icon-file" v-else/>
+          </div>
+          <textarea
+              id="title"
+              type="text"
+              @focus="autoGrow"
+              @keyup="autoGrow"
+              v-if="renameToggle && chosenFile === file.name"
+              rows="1"
+              v-model="newTitle"
+              @keydown.enter="checkTitle(file, newTitle)"
+              @click.stop
+              @blur="closeInput"
+              @keydown.esc="closeInput"
+          ></textarea>
+          <div v-else class="card-text">{{ file.name }}</div>
         </div>
-        <textarea
-            id="title"
-            type="text"
-            @focus="autoGrow"
-            @keyup="autoGrow"
-            v-if="renameToggle && chosenFile === file.name"
-            rows="1"
-            v-model="newTitle"
-            @keydown.enter="checkTitle(file, newTitle)"
-            @click.stop
-            @blur="closeInput"
-            @keydown.esc="closeInput"
-        ></textarea>
-        <div v-else class="card-text">{{ file.name }}</div>
-      </div>
-    </li>
-  </ul>
-  <context-menu :display="showContextMenu" ref="menu">
-    <li @mousedown="rename(this.file)">Переименовать<!-- Rename --></li>
-    <li @mousedown="deleteF(this.file)">Удалить<!-- Delete --></li>
-  </context-menu>
+      </li>
+      <li v-if="this.$parent.createFolderStatus">
+        <div class="card-body d-flex flex-column align-items-center">
+          <div class="mb-1 d-flex justify-content-center align-items-center">
+            <IconFolder class="icon-folder"/>
+          </div>
+          <textarea
+              id="title"
+              type="text"
+              @focus="autoGrow"
+              @keyup="autoGrow"
+              rows="1"
+              v-model="newTitle"
+              @keydown.enter="checkCreationFolder(newTitle)"
+              @click.stop
+              @blur="closeInput"
+              @keydown.esc="closeInput"
+          ></textarea>
+        </div>
+      </li>
+    </ul>
+    <context-menu :display="showContextMenu" ref="menu">
+      <li @mousedown="rename(this.file)">Переименовать<!-- Rename --></li>
+      <li @mousedown="deleteF(this.file)">Удалить<!-- Delete --></li>
+    </context-menu>
+    <context-menu :display="showContextMenu" ref="creationMenu">
+      <li @mousedown="createFolderMenu">Создать папку<!-- Create folder --></li>
+    </context-menu>
+  </div>
 </template>
 
 
@@ -51,9 +79,9 @@ export default {
     ContextMenu,
   },
   mixins: [ContextMenuDataAndFunctions],
-  emits: ['folderClick', 'fileClick', 'deleteFile', 'renameFile'],
+  emits: ['folderClick', 'fileClick', 'deleteFile', 'renameFile', 'createFolder'],
   props: {
-    files: {type: Array, default: () => []}
+    files: {type: Array, default: () => []},
   },
   setup(_, {emit}) {
     const onFileClick = file => {
@@ -66,16 +94,24 @@ export default {
     const renameFile = (file, newTitle) => {
       emit('renameFile', {file: file, title: newTitle})
     }
+    const createFolder = (title) => {
+      emit('createFolder', title)
+    }
     return {
       onFileClick,
       deleteFile,
       renameFile,
+      createFolder,
     }
   },
 }
 </script>
 
 <style scoped>
+.inner-wrap {
+  min-height: 100vh;
+}
+
 .main-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 150px);
@@ -85,6 +121,7 @@ export default {
   padding: 0;
   tab-index: 0;
   margin-bottom: 0;
+  height: 100%;
 }
 
 .card {

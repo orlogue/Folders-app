@@ -3,6 +3,7 @@
       :path="path"
       :show-hidden="showHidden"
       :show-hidden-bool="showHiddenBool"
+      :create-folder-from-b-m="createFolderFromBM"
       :back="back"
       :on-change="onChange"
       v-model:search-string="searchString"
@@ -15,6 +16,7 @@
         @fileClick="openFile($event.name)"
         @deleteFile="deleteFile($event)"
         @renameFile="renameFile($event)"
+        @createFolder="createFolder($event)"
     />
     <ListView
         v-else
@@ -23,6 +25,7 @@
         @fileClick="openFile($event.name)"
         @deleteFile="deleteFile($event)"
         @renameFile="renameFile($event)"
+        @createFolder="createFolder($event)"
     />
   </div>
   <div class="footer">
@@ -120,9 +123,22 @@ export default {
       path.value = currentPathArr.slice(0, id + 1).join('/')
     }
     const renameFile = ({file, title}) => {
-      console.log(file)
-      console.log(title)
-      console.log(files.value)
+      if (files.value.find(s => s.name === title)) {
+        dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(),{
+          type: 'warning',
+          title: 'Ошибка',
+          buttons: ['Отменить'],
+          normalizeAccessKeys: true,
+          message: 'Папка/файл с таким названием уже существует!',
+        });
+      } else {
+        fs.renameSync(pathModule.join(path.value, file.name), pathModule.join(path.value, title))
+        const tmp = path.value
+        path.value = '/Users'
+        path.value = tmp
+      }
+    }
+    const createFolder = (title) => {
       if (files.value.find(s => s.name === title)) {
         dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(),{
           type: 'warning',
@@ -132,7 +148,7 @@ export default {
           message: 'Папка/файл с таким названием уже существует!', //Folder/file with this title already exists.
         });
       } else {
-        fs.renameSync(pathModule.join(path.value, file.name), pathModule.join(path.value, title))
+        fs.mkdirSync(pathModule.join(path.value, title))
         const tmp = path.value
         path.value = '/Users'
         path.value = tmp
@@ -150,11 +166,13 @@ export default {
       deleteFile,
       goToDir,
       renameFile,
+      createFolder,
     }
   },
   data() {
     return {
       view: 'icons',
+      createFolderStatus: false,
     }
   },
   methods: {
@@ -164,6 +182,17 @@ export default {
     showHidden() {
       this.showHiddenBool = !this.showHiddenBool
     },
+    createFolderFromBM() {
+      this.createFolderStatus = true
+      this.newTitle = ""
+      setTimeout(function () {
+        let input = document.getElementById("title")
+        input.focus();
+        input.select();
+        document.querySelector('#files').style.pointerEvents = 'none';
+        document.querySelector('#title').style.pointerEvents = 'auto';
+      }, 10);
+    }
   },
 }
 </script>
@@ -175,6 +204,7 @@ body::-webkit-scrollbar {
 
 .wrapper {
   margin: 0 20px 44px 20px;
+  min-height: 100vh;
 }
 
 .footer {

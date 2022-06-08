@@ -6,6 +6,7 @@ export default {
       newTitle: "",
       showContextMenu: false,
       file: Object,
+      itemClicked: false,
     }
   },
   methods: {
@@ -27,6 +28,7 @@ export default {
     },
     closeInput() {
       this.renameToggle = false;
+      this.$parent.createFolderStatus = false;
       document.querySelector('#files').style.pointerEvents = 'auto';
     },
     checkTitle(file, newTitle) {
@@ -35,6 +37,14 @@ export default {
       } else {
         this.renameToggle = false
       }
+      this.newTitle = ""
+    },
+    checkCreationFolder(title) {
+      this.createFolder(title)
+      this.$parent.createFolderStatus = false
+    },
+    openFolderCreationMenu(e) {
+      this.$refs.creationMenu.open(e)
     },
     openContextMenu(e, file) {
       this.$refs.menu.open(e);
@@ -47,6 +57,18 @@ export default {
 
       textarea.style.width = '3ch';
       textarea.style.width = textarea.value.length + 'ch';
-    }
+    },
+    createFolderMenu() {
+      this.$refs.menu.close()
+      this.newTitle = ""
+      this.$parent.createFolderStatus = true
+      setTimeout(function () {
+        let input = document.getElementById("title")
+        input.focus();
+        input.select();
+        document.querySelector('#files').style.pointerEvents = 'none';
+        document.querySelector('#title').style.pointerEvents = 'auto';
+      }, 10);
+    },
   },
 }

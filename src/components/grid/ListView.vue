@@ -1,4 +1,7 @@
 <template>
+  <div class="inner-wrap"
+       @contextmenu="openFolderCreationMenu($event)"
+  >
   <table class="table table-hover" id="files">
     <thead>
     <tr class="head unselectable">
@@ -15,6 +18,7 @@
         :class="{ clickable: file }"
         @click="onFileClick(file)"
         @contextmenu="openContextMenu($event, file)"
+        @contextmenu.stop
     >
       <td class="icon-row">
         <div class="d-flex justify-content-center">
@@ -44,11 +48,44 @@
         <span class="float-end">{{ file.size }}</span>
       </td>
     </tr>
+    <tr
+        v-if="this.$parent.createFolderStatus"
+    >
+      <td class="icon-row">
+        <div class="d-flex justify-content-center">
+          <IconFolder class="icon-folder"/>
+        </div>
+      </td>
+      <td class="textarea-wrapper">
+        <textarea
+            id="title"
+            type="text"
+            @focus="autoGrow"
+            @keyup="autoGrow"
+            rows="1"
+            v-model="newTitle"
+            @keydown.enter="checkCreationFolder(newTitle)"
+            @click.stop
+            @blur="closeInput"
+            @keydown.esc="closeInput"
+        ></textarea>
+      </td>
+<!--      <td>-->
+<!--        <span class="float-end">{{ parseDate(file.created.toString()) }}</span>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <span class="float-end">{{ file.size }}</span>-->
+<!--      </td>-->
+    </tr>
     </tbody>
   </table>
+  </div>
   <context-menu :display="showContextMenu" ref="menu">
     <li @mousedown="rename(this.file)">Переименовать<!-- Rename --></li>
     <li @mousedown="deleteF(this.file)">Удалить<!-- Delete --></li>
+  </context-menu>
+  <context-menu :display="showContextMenu" ref="creationMenu">
+    <li @mousedown="createFolderMenu">Создать папку<!-- Create folder --></li>
   </context-menu>
 </template>
 
@@ -66,7 +103,7 @@ export default {
     IconFolder,
     ContextMenu,
   },
-  emits: ['folderClick', 'fileClick', 'deleteFile', 'renameFile'],
+  emits: ['folderClick', 'fileClick', 'deleteFile', 'renameFile', 'createFolder'],
   mixins: [ContextMenuDataAndFunctions],
   props: {
     files: {type: Array, default: () => []}
@@ -82,10 +119,14 @@ export default {
     const renameFile = (file, newTitle) => {
       emit('renameFile', {file: file, title: newTitle})
     }
+    const createFolder = (title) => {
+      emit('createFolder', title)
+    }
     return {
       onFileClick,
       deleteFile,
       renameFile,
+      createFolder
     }
   },
   methods: {
@@ -98,6 +139,10 @@ export default {
 </script>
 
 <style scoped>
+.inner-wrap {
+  min-height: 100vh;
+}
+
 tr {
   height: 57px;
 }
