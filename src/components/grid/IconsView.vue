@@ -3,6 +3,25 @@
        @contextmenu="openFolderCreationMenu($event)"
   >
     <ul id="files" class="main-grid">
+      <li v-if="this.$parent.createFolderStatus">
+        <div class="card-body d-flex flex-column align-items-center">
+          <div class="mb-1 d-flex justify-content-center align-items-center">
+            <IconFolder class="icon-folder"/>
+          </div>
+          <textarea
+              id="title"
+              type="text"
+              @focus="autoGrow"
+              @keyup="autoGrow"
+              rows="1"
+              v-model="newTitle"
+              @keydown.enter="checkCreationFolder(newTitle)"
+              @click.stop
+              @blur="closeInput"
+              @keydown.esc="closeInput"
+          ></textarea>
+        </div>
+      </li>
       <li
           id="file"
           class="card"
@@ -32,25 +51,6 @@
               @keydown.esc="closeInput"
           ></textarea>
           <div v-else class="card-text">{{ file.name }}</div>
-        </div>
-      </li>
-      <li v-if="this.$parent.createFolderStatus">
-        <div class="card-body d-flex flex-column align-items-center">
-          <div class="mb-1 d-flex justify-content-center align-items-center">
-            <IconFolder class="icon-folder"/>
-          </div>
-          <textarea
-              id="title"
-              type="text"
-              @focus="autoGrow"
-              @keyup="autoGrow"
-              rows="1"
-              v-model="newTitle"
-              @keydown.enter="checkCreationFolder(newTitle)"
-              @click.stop
-              @blur="closeInput"
-              @keydown.esc="closeInput"
-          ></textarea>
         </div>
       </li>
     </ul>

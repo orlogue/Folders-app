@@ -13,6 +13,35 @@
     </thead>
     <tbody>
     <tr
+        v-if="this.$parent.createFolderStatus"
+    >
+      <td class="icon-row">
+        <div class="d-flex justify-content-center">
+          <IconFolder class="icon-folder"/>
+        </div>
+      </td>
+      <td class="textarea-wrapper">
+        <textarea
+            id="title"
+            type="text"
+            @focus="autoGrow"
+            @keyup="autoGrow"
+            rows="1"
+            v-model="newTitle"
+            @keydown.enter="checkCreationFolder(newTitle)"
+            @click.stop
+            @blur="closeInput"
+            @keydown.esc="closeInput"
+        ></textarea>
+      </td>
+      <!--      <td>-->
+      <!--        <span class="float-end">{{ parseDate(file.created.toString()) }}</span>-->
+      <!--      </td>-->
+      <!--      <td>-->
+      <!--        <span class="float-end">{{ file.size }}</span>-->
+      <!--      </td>-->
+    </tr>
+    <tr
         v-for="file in files"
         :key="file.name"
         :class="{ clickable: file }"
@@ -47,35 +76,6 @@
       <td>
         <span class="float-end">{{ file.size }}</span>
       </td>
-    </tr>
-    <tr
-        v-if="this.$parent.createFolderStatus"
-    >
-      <td class="icon-row">
-        <div class="d-flex justify-content-center">
-          <IconFolder class="icon-folder"/>
-        </div>
-      </td>
-      <td class="textarea-wrapper">
-        <textarea
-            id="title"
-            type="text"
-            @focus="autoGrow"
-            @keyup="autoGrow"
-            rows="1"
-            v-model="newTitle"
-            @keydown.enter="checkCreationFolder(newTitle)"
-            @click.stop
-            @blur="closeInput"
-            @keydown.esc="closeInput"
-        ></textarea>
-      </td>
-<!--      <td>-->
-<!--        <span class="float-end">{{ parseDate(file.created.toString()) }}</span>-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <span class="float-end">{{ file.size }}</span>-->
-<!--      </td>-->
     </tr>
     </tbody>
   </table>
