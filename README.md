@@ -1,5 +1,10 @@
 # Folders-app
 
+## Preview
+<img src="screenshots/1.png" width="600px"/>
+<img src="screenshots/2.png" width="600px"/>
+<img src="screenshots/4.png" width="600px"/>
+
 ## Requirements to develop and deploy
 
 1) Node.js 16.15.0 and NPM
