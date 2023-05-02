@@ -1,26 +1,38 @@
 <template>
-  <div class="inner-wrap"
-       @contextmenu="openFolderCreationMenu($event)"
+  <div
+      class="inner-wrap"
+      @contextmenu="openFolderCreationMenu($event)"
   >
-  <table class="table table-hover" id="files">
-    <thead>
-    <tr class="head unselectable">
-      <th scope="col"></th>
-      <th scope="col">Имя<!-- Name --></th>
-      <th scope="col" class="text-end">Дата создания<!-- Creation date --></th>
-      <th scope="col" class="text-end">Размер<!-- Size --></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr
-        v-if="this.$parent.createFolderStatus"
+    <table
+        class="table table-hover"
+        id="files"
     >
-      <td class="icon-row">
-        <div class="d-flex justify-content-center">
-          <IconFolder class="icon-folder"/>
-        </div>
-      </td>
-      <td class="textarea-wrapper">
+      <thead>
+      <tr class="head unselectable">
+        <th scope="col"></th>
+        <th scope="col">Имя<!-- Name --></th>
+        <th
+            scope="col"
+            class="text-end"
+        >Дата создания<!-- Creation date -->
+        </th>
+        <th
+            scope="col"
+            class="text-end"
+        >Размер<!-- Size -->
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+          v-if="this.$parent.createFolderStatus"
+      >
+        <td class="icon-row">
+          <div class="d-flex justify-content-center">
+            <IconFolder class="icon-folder"/>
+          </div>
+        </td>
+        <td class="textarea-wrapper">
         <textarea
             id="title"
             type="text"
@@ -33,29 +45,32 @@
             @blur="closeInput"
             @keydown.esc="closeInput"
         ></textarea>
-      </td>
-      <!--      <td>-->
-      <!--        <span class="float-end">{{ parseDate(file.created.toString()) }}</span>-->
-      <!--      </td>-->
-      <!--      <td>-->
-      <!--        <span class="float-end">{{ file.size }}</span>-->
-      <!--      </td>-->
-    </tr>
-    <tr
-        v-for="file in files"
-        :key="file.name"
-        :class="{ clickable: file }"
-        @click="onFileClick(file)"
-        @contextmenu="openContextMenu($event, file)"
-        @contextmenu.stop
-    >
-      <td class="icon-row">
-        <div class="d-flex justify-content-center">
-          <IconFolder class="icon-folder" v-if="file.directory"/>
-          <IconFile class="icon-file" v-else/>
-        </div>
-      </td>
-      <td class="textarea-wrapper" v-if="renameToggle && chosenFile === file.name">
+        </td>
+      </tr>
+      <tr
+          v-for="file in files"
+          :key="file.name"
+          :class="{ clickable: file }"
+          @click="onFileClick(file)"
+          @contextmenu="openContextMenu($event, file)"
+          @contextmenu.stop
+      >
+        <td class="icon-row">
+          <div class="d-flex justify-content-center">
+            <IconFolder
+                class="icon-folder"
+                v-if="file.directory"
+            />
+            <IconFile
+                class="icon-file"
+                v-else
+            />
+          </div>
+        </td>
+        <td
+            class="textarea-wrapper"
+            v-if="renameToggle && chosenFile === file.name"
+        >
         <textarea
             id="title"
             type="text"
@@ -68,19 +83,26 @@
             @blur="closeInput"
             @keydown.esc="closeInput"
         ></textarea>
-      </td>
-      <td class="name" v-else>{{ file.name }}</td>
-      <td>
-        <span class="float-end">{{ parseDate(file.created.toString()) }}</span>
-      </td>
-      <td>
-        <span class="float-end">{{ file.size }}</span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        </td>
+        <td
+            class="name"
+            v-else
+        >{{ file.name }}
+        </td>
+        <td>
+          <span class="float-end">{{ parseDate(file.created.toString()) }}</span>
+        </td>
+        <td>
+          <span class="float-end">{{ file.size }}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <context-menu :display="showContextMenu" ref="menu">
+  <context-menu
+      :display="showContextMenu"
+      ref="menu"
+  >
     <li @mousedown="rename(this.file)">Переименовать<!-- Rename --></li>
     <li @mousedown="deleteF(this.file)">Удалить<!-- Delete --></li>
   </context-menu>
@@ -192,13 +214,8 @@ textarea {
 
 .name {
   max-width: 400px;
-  /*overflow-wrap: break-word;*/
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.size {
-  max-width: 70px;
 }
 
 .name:hover {

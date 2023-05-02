@@ -42,11 +42,11 @@
 import fs from 'fs'
 import pathModule from 'path'
 import {computed, ref} from "vue";
-import {shell } from "electron";
+import {shell} from "electron";
 import IconsView from "@/components/grid/IconsView";
 import ListView from "@/components/grid/ListView";
 import BarMenu from "@/components/BarMenu";
-import { dialog } from "@electron/remote"
+import {dialog} from "@electron/remote"
 
 const formatSize = size => {
   if (!size) return '0 B'
@@ -124,7 +124,7 @@ export default {
     }
     const renameFile = ({file, title}) => {
       if (files.value.find(s => s.name === title)) {
-        dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(),{
+        dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(), {
           type: 'warning',
           title: 'Ошибка',
           buttons: ['Отменить'],
@@ -140,7 +140,7 @@ export default {
     }
     const createFolder = (title) => {
       if (files.value.find(s => s.name === title)) {
-        dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(),{
+        dialog.showMessageBoxSync(require('@electron/remote').getCurrentWindow(), {
           type: 'warning',
           title: 'Ошибка', //Error
           buttons: ['Отменить'], //Cancel

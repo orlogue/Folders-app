@@ -128,7 +128,23 @@ export default {
   width: 150px;
   height: 160px;
   border: none;
-  /*overflow: hidden;*/
+}
+
+.card:hover {
+  overflow: visible;
+}
+
+.card:hover .card-text {
+  background-color: rgba(0, 0, 0, 0.085);
+  color: #212529;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.card:hover .icon-file, .card:hover .icon-folder {
+  background-color: rgba(0, 0, 0, 0.085);;
+  color: #212529;
+  border-radius: 5px;
 }
 
 .card-text {
@@ -148,7 +164,6 @@ textarea {
   resize: none;
   padding: 0 5px;
   min-width: 3ch;
-  /*width: 20px;*/
   min-height: 19px;
   max-height: 95px;
   text-align: center;
@@ -157,39 +172,6 @@ textarea {
   outline: none;
   overflow: hidden;
   z-index: 1;
-}
-
-/*.form-control {*/
-/*  width: unset;*/
-/*  border-radius: 5px !important;*/
-/*  font-size: 14px;*/
-/*  line-height: 19px;*/
-/*  max-width: 140px;*/
-/*  margin: 0 -12px;*/
-/*  padding: 1px 8px;*/
-/*  text-overflow: ellipsis;*/
-/*  text-align: center;*/
-/*  resize: none;*/
-/*  overflow: hidden;*/
-/*  min-height: 19px !important;*/
-/*  max-height: 57px;*/
-/*}*/
-
-.card:hover {
-  overflow: visible;
-}
-
-.card:hover .card-text {
-  background-color: rgba(0, 0, 0, 0.085);
-  color: #212529;
-  border-radius: 5px;
-  z-index: 1;
-}
-
-.card:hover .icon-file, .card:hover .icon-folder {
-  background-color: rgba(0, 0, 0, 0.085);;
-  color: #212529;
-  border-radius: 5px;
 }
 
 .clickable {

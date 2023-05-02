@@ -1,12 +1,11 @@
 <template>
   <div id="BarMenu" class="navbar sticky-top form-group d-flex px-4 py-3 align-items-center">
-      <span
-          class="me-3 "
-          @click="back"
-          :class="[path === '/Users' ? 'unclickable' : 'clickable']"
+      <button
+          class="me-3 arrow-button"
+          @click="goBack"
       >
           <ArrowLeft/>
-      </span>
+      </button>
     <button id="newFolder"
             @click="createFolderFromBM"
             class="btn btn-light shadow-none clickable"
@@ -28,7 +27,7 @@
             @click="showHidden"
             :class="{'active-button': showHiddenBool}"
     >
-      Скрытое
+      Скрытое<!-- Hidden -->
     </button>
     <div class="ms-auto col-3">
       <!-- Search -->
@@ -59,6 +58,19 @@ export default {
     searchString: String,
     createFolderFromBM: Function,
   },
+  data() {
+    return {
+      cannotGoBack: this.$props.path === '/Users'
+    }
+  },
+  methods: {
+    goBack() {
+      let cannotGoBack = this.$props.path === '/Users'
+      if (!cannotGoBack) {
+        return this.$props.back()
+      }
+    }
+  }
 }
 </script>
 
@@ -66,6 +78,12 @@ export default {
 .navbar {
   background-color: #f5f5f5;
   height: 70px;
+}
+
+.arrow-button {
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .form-control, .btn, .form-select {
@@ -91,11 +109,5 @@ export default {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.unclickable {
-  cursor: default;
-  pointer-events: none;
-  fill: #777777;
 }
 </style>
